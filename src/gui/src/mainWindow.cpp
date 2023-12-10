@@ -179,15 +179,15 @@ MainWindow::MainWindow(QWidget* parent)
   connect(viewers_,
           &LayoutTabs::selected,
           this,
-          qOverload<const Selected&, bool>(&MainWindow::setSelected));
+          static_cast<void (MainWindow::*)(const Selected&, bool)>(&MainWindow::setSelected));
   connect(viewers_,
-          qOverload<const Selected&>(&LayoutTabs::addSelected),
+          static_cast<void (LayoutTabs::*)(const Selected&)>(&LayoutTabs::addSelected),
           this,
-          qOverload<const Selected&>(&MainWindow::addSelected));
+          static_cast<void (MainWindow::*)(const Selected&)>(&MainWindow::addSelected));
   connect(viewers_,
-          qOverload<const SelectionSet&>(&LayoutTabs::addSelected),
+          static_cast<void (LayoutTabs::*)(const SelectionSet&)>(&LayoutTabs::addSelected),
           this,
-          qOverload<const SelectionSet&>(&MainWindow::addSelected));
+          static_cast<void (MainWindow::*)(const SelectionSet&)>(&MainWindow::addSelected));
 
   connect(
       viewers_, &LayoutTabs::addRuler, [this](int x0, int y0, int x1, int y1) {
@@ -207,11 +207,11 @@ MainWindow::MainWindow(QWidget* parent)
   connect(inspector_,
           &Inspector::selected,
           this,
-          qOverload<const Selected&, bool>(&MainWindow::setSelected));
+          static_cast<void (MainWindow::*)(const Selected&, bool)>(&MainWindow::setSelected));
   connect(inspector_,
           &Inspector::addSelected,
           this,
-          qOverload<const Selected&>(&MainWindow::addSelected));
+          static_cast<void (MainWindow::*)(const Selected&)>(&MainWindow::addSelected));
   connect(inspector_,
           &Inspector::removeSelected,
           this,
@@ -293,7 +293,7 @@ MainWindow::MainWindow(QWidget* parent)
   connect(clock_viewer_,
           &ClockWidget::selected,
           this,
-          qOverload<const Selected&>(&MainWindow::addSelected));
+          static_cast<void (MainWindow::*)(const Selected&)>(&MainWindow::addSelected));
 
   connect(selection_browser_,
           &SelectHighlightWindow::clearAllSelections,
@@ -326,7 +326,7 @@ MainWindow::MainWindow(QWidget* parent)
   connect(timing_widget_,
           &TimingWidget::highlightTimingPath,
           viewers_,
-          qOverload<>(&LayoutTabs::update));
+          static_cast<void (LayoutTabs::*)()>(&LayoutTabs::update));
 
   connect(timing_widget_,
           &TimingWidget::setCommand,
@@ -591,11 +591,11 @@ void MainWindow::createActions()
   connect(zoom_in_,
           &QAction::triggered,
           viewers_,
-          qOverload<>(&LayoutTabs::zoomIn));
+          static_cast<void (LayoutTabs::*)()>(&LayoutTabs::zoomIn));
   connect(zoom_out_,
           &QAction::triggered,
           viewers_,
-          qOverload<>(&LayoutTabs::zoomOut));
+          static_cast<void (LayoutTabs::*)()>(&LayoutTabs::zoomOut));
   connect(find_, &QAction::triggered, this, &MainWindow::showFindDialog);
   connect(
       goto_position_, &QAction::triggered, this, &MainWindow::showGotoDialog);

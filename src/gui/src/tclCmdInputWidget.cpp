@@ -332,7 +332,7 @@ void TclCmdInputWidget::updateCompletion()
     setCompleterCommands();
 
     connect(completer_.get(),
-            qOverload<const QString&>(&QCompleter::activated),
+            static_cast<void (QCompleter::*)(const QString&)>(&QCompleter::activated),
             this,
             &TclCmdInputWidget::insertCompletion);
   } else {

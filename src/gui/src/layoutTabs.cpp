@@ -110,13 +110,13 @@ void LayoutTabs::blockLoaded(odb::dbBlock* block)
   connect(viewer, &LayoutViewer::location, this, &LayoutTabs::location);
   connect(viewer, &LayoutViewer::selected, this, &LayoutTabs::selected);
   connect(viewer,
-          qOverload<const Selected&>(&LayoutViewer::addSelected),
+          static_cast<void (LayoutViewer::*)(const Selected&)>(&LayoutViewer::addSelected),
           this,
-          qOverload<const Selected&>(&LayoutTabs::addSelected));
+          static_cast<void (LayoutTabs::*)(const Selected&)>(&LayoutTabs::addSelected));
   connect(viewer,
-          qOverload<const SelectionSet&>(&LayoutViewer::addSelected),
+          static_cast<void (LayoutViewer::*)(const SelectionSet&)>(&LayoutViewer::addSelected),
           this,
-          qOverload<const SelectionSet&>(&LayoutTabs::addSelected));
+          static_cast<void (LayoutTabs::*)(const SelectionSet&)>(&LayoutTabs::addSelected));
   connect(viewer, &LayoutViewer::addRuler, this, &LayoutTabs::addRuler);
   connect(viewer,
           &LayoutViewer::focusNetsChanged,

@@ -167,20 +167,20 @@ HeatMapSetup::HeatMapSetup(HeatMapDataSource& source,
 
   if (!use_dbu_) {
     connect(grid_x_size_,
-            qOverload<double>(&QDoubleSpinBox::valueChanged),
+            static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
             this,
             &HeatMapSetup::updateGridSize);
     connect(grid_y_size_,
-            qOverload<double>(&QDoubleSpinBox::valueChanged),
+            static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
             this,
             &HeatMapSetup::updateGridSize);
   } else {
     connect(grid_x_size_dbu_,
-            qOverload<int>(&QSpinBox::valueChanged),
+            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             this,
             &HeatMapSetup::updateGridSize);
     connect(grid_y_size_dbu_,
-            qOverload<int>(&QSpinBox::valueChanged),
+            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             this,
             &HeatMapSetup::updateGridSize);
   }
@@ -196,11 +196,11 @@ HeatMapSetup::HeatMapSetup(HeatMapDataSource& source,
           &HeatMapSetup::updateShowLegend);
 
   connect(min_range_selector_,
-          qOverload<double>(&QDoubleSpinBox::valueChanged),
+          static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
           this,
           &HeatMapSetup::updateRange);
   connect(max_range_selector_,
-          qOverload<double>(&QDoubleSpinBox::valueChanged),
+          static_cast<void (QDoubleSpinBox::*)(double)>(&QDoubleSpinBox::valueChanged),
           this,
           &HeatMapSetup::updateRange);
   connect(show_mins_,
@@ -213,7 +213,7 @@ HeatMapSetup::HeatMapSetup(HeatMapDataSource& source,
           &HeatMapSetup::updateShowMaxRange);
 
   connect(alpha_selector_,
-          qOverload<int>(&QSpinBox::valueChanged),
+          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
           this,
           &HeatMapSetup::updateAlpha);
 

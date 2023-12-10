@@ -688,7 +688,7 @@ ClockTreeScene::ClockTreeScene(QWidget* parent)
   color_depth_->setRange(0, 5);
   color_depth_->setValue(1);
   connect(color_depth_,
-          qOverload<int>(&QSpinBox::valueChanged),
+          static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
           this,
           &ClockTreeScene::colorDepth);
 }
